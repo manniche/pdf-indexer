@@ -6,10 +6,26 @@
 (import org.apache.pdfbox.util.PDFTextStripper)
 (import org.apache.pdfbox.lucene.LucenePDFDocument)
 
+(defn compare-docs [doc-one doc-two]
+  ;; for entry in metadata:
+  ;;  compare lengths of metadata
+  ;;   - if any differs, take the longest, log the shortest
+  )
+
+(defn normalize-text [text]
+  ;; define regex'es for capturing:
+  ;; cells containing only numbers
+  ;; cells containing only punctuation
+  ;; cells containing what looks like headers (recurring author name, timestamps copyright notices, company names etc.
+  
+  )
 
 (defn extract-text [pdf]
-  (let [stripper (PDFTextStripper.)])
   (split (.getText (PDFTextStripper.) (. PDDocument load pdf) ) #"\r\n")
+  )
+
+(defn extract-metadata [pdf]
+  (.getMetadata (PDFTextStripper.) (. PDDocument load pdf) )
   )
 
 (defn extract-document [pdf]
@@ -28,8 +44,7 @@
       (println (.name field) (.stringValue field))
       )))
 
-
 (defn -main [filepath]
-  (inspect-lucene-doc (extract-document filepath))
-  ;;  (take 10 (extract-text filepath))
+  ;;(inspect-lucene-doc (extract-document filepath))
+  (extract-metadata filepath)
   )
